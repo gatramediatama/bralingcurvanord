@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braling Curva Nord - BCN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --black-light: #1a1a1a;
+            --white: #ffffff;
+            --red: #dc2626;
+            --red-dark: #991b1b;
+            --red-light: #ef4444;
+            --gray: #9ca3af;
+            --gray-dark: #374151;
+        }
+
+        body {
+            font-family: 'Arial', 'Helvetica Neue', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* Main Navbar */
+        .navbar {
+            background: var(--black);
+            box-shadow: 0 2px 20px rgba(220, 38, 38, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--red);
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 90px;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .brand-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--red);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
+            flex-shrink: 0;
+        }
+
+        .brand-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+
+        .brand-text h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .brand-text p {
+            font-size: 0.75rem;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+
+        .nav-menu li a {
+            display: block;
+            padding: 2rem 1.5rem;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--red);
+            transition: width 0.3s;
+        }
+
+        .nav-menu li a:hover {
+            color: var(--red);
+        }
+
+        .nav-menu li a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        /* Hero Section - Split Layout */
+        .hero {
+            position: relative;
+            min-height: 600px;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--black) 0%, var(--red-dark) 100%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.02) 2px,
+                    rgba(255,255,255,0.02) 4px
+                );
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 600px;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--white);
+            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .hero-tagline {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: 2px solid var(--red);
+        }
+
+        .hero-cta:hover {
+            background: transparent;
+            border-color: var(--white);
+        }
+
+        .hero-image {
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-image-wrapper {
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            position: relative;
+            border: 3px solid var(--red);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.4);
+        }
+
+        .hero-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--red-dark), var(--red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--white);
+            letter-spacing: 4px;
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 5rem 2rem;
+            background: var(--black);
+        }
+
+        .section-dark {
+            background: var(--black-light);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            color: var(--red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Photo Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 2px solid #333;
+            transition: all 0.3s;
+            background: var(--black-light);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            border-color: var(--red);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+        }
+
+        .gallery-placeholder svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .gallery-placeholder p {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-caption p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Profile Cards */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .profile-card {
+            background: var(--black-light);
+            border: 2px solid #333;
+            border-radius: 10px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--red);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .profile-card:hover {
+            border-color: var(--red);
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .profile-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--red);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon svg {
+            width: 30px;
+            height: 30px;
+            color: var(--white);
+            stroke-width: 2;
+        }
+
+        .profile-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .profile-card p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            background: var(--black-light);
+            border-radius: 10px;
+            border: 2px solid #333;
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover {
+            border-color: var(--red);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.3);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--red);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Mission Cards */
+        .mission-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .mission-card {
+            background: var(--black-light);
+            border-left: 5px solid var(--red);
+            padding: 2.5rem;
+            border-radius: 5px;
+            border: 2px solid #333;
+            border-left: 5px solid var(--red);
+            transition: all 0.3s;
+        }
+
+        .mission-card:hover {
+            border-color: var(--red);
+            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
+            transform: translateX(10px);
+        }
+
+        .mission-card h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .mission-card p {
+            color: var(--gray);
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--red);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--black-light);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid #333;
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--red);
+            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--red);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--red-dark), var(--red));
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(0,0,0,0.1) 10px,
+                    rgba(0,0,0,0.1) 20px
+                );
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--red);
+            padding: 1.2rem 3rem;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            border: 3px solid var(--white);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: var(--white);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--black-light);
+            color: var(--white);
+            padding: 4rem 2rem 2rem;
+            border-top: 3px solid var(--red);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white);
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--red);
+        }
+
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            border: 3px solid var(--red);
+        }
+
+        .footer-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--black);
+                flex-direction: column;
+                box-shadow: 0 5px 15px rgba(220, 38, 38, 0.3);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li a {
+                padding: 1rem 2rem;
+                border-bottom: 1px solid #333;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero-content {
+                order: 2;
+                text-align: center;
+            }
+
+            .hero-image {
+                order: 1;
+                min-height: 400px;
+            }
+
+            .hero-image-wrapper {
+                max-width: 400px;
+                height: 400px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 0;
+            }
+
+            .timeline-item {
+                flex-direction: column !important;
+                align-items: flex-start;
+            }
+
+            .timeline-content {
+                width: 100%;
+                margin-left: 2rem;
+            }
+
+            .timeline-date {
+                left: 0;
+                transform: none;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in:nth-child(1) { animation-delay: 0.1s; }
+        .fade-in:nth-child(2) { animation-delay: 0.2s; }
+        .fade-in:nth-child(3) { animation-delay: 0.3s; }
+        .fade-in:nth-child(4) { animation-delay: 0.4s; }
+        .fade-in:nth-child(5) { animation-delay: 0.5s; }
+        .fade-in:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <!-- Main Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <div class="brand-logo">
+                    <img src="img/logobcn.jpeg" alt="BCN Logo">
+                </div>
+                <div class="brand-text">
+                    <h1>Braling Curva Nord</h1>
+                    <p>Est. 03.03.2013</p>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#gallery">Galeri</a></li>
+                <li><a href="#about">Profil</a></li>
+                <li><a href="#mission">Visi & Misi</a></li>
+                <li><a href="#structure">Struktur</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Split Layout -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h2 class="hero-title">Braling Curva Nord</h2>
+                <p class="hero-subtitle">Purbalingga, Jawa Tengah</p>
+                <p class="hero-tagline">BUSUNG GONE NYONG</p>
+                <p class="hero-description">
+                    Komunitas suporter mandiri yang berdiri sejak 03 Maret 2013.
+                    Berkreasi demi Persibangga dengan semangat kemandirian, kreativitas, dan loyalitas harga mati.
+                </p>
+                <a href="#about" class="hero-cta">Kenali Kami</a>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-wrapper">
+                    <img src="img/heroimg.jpeg" alt="BCN Hero Image">
+                    </div>
+                    <div class="hero-image-placeholder">BCN</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section class="section section-dark" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Dokumentasi</span>
+                <h2 class="section-title">Galeri Foto BCN</h2>
+                <p class="section-description">
+                    Dokumentasi perjalanan dan aktivitas Braling Curva Nord dalam mendukung Persibangga
+                </p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <div class="gallery-placeholder">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>Aksi di Stadion</p>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Aksi di Stadion</h3>
+                        <p>Persibangga Vs Persibas </p>
+                    </div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <div class="gallery-placeholder">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>Koreografi</p>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Koreografi BCN</h3>
+                        <p>Upload foto koreografi dan tifo</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <div class="gallery-placeholder">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>Kegiatan Komunitas</p>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Kegiatan Komunitas</h3>
+                        <p>Upload foto kegiatan BCN</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <div class="gallery-placeholder">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>Perjalanan Away</p>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Perjalanan Away</h3>
+                        <p>Upload foto saat away</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <div class="gallery-placeholder">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>Merchandise</p>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Merchandise BCN</h3>
+                        <p>Upload foto merchandise</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <div class="gallery-placeholder">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p>Moment Spesial</p>
+                    </div>
+                    <div class="gallery-caption">
+                        <h3>Moment Spesial</h3>
+                        <p>Upload foto moment bersejarah</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">12+</div>
+                    <div class="stat-label">Tahun Berdiri</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Anggota Aktif</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Distrik</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Loyalitas</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile/About Section -->
+    <section class="section section-dark" id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Profil Kami</span>
+                <h2 class="section-title">Braling Curva Nord</h2>
+                <p class="section-description">
+                    BCN adalah komunitas suporter yang berdiri mandiri sejak 03 Maret 2013, 
+                    berkomitmen untuk mendukung Persibangga dengan kreativitas dan loyalitas.
+                </p>
+            </div>
+            <div class="profile-grid">
+                <div class="profile-card fade-in">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                        </svg>
+                    </div>
+                    <h3>Komunitas Mandiri</h3>
+                    <p>BCN adalah komunitas suporter yang berdiri secara mandiri dan independen.
+                        Tidak terikat dan tidak bergantung pada organisasi mana pun.
+                        Dengan aturan dan identitas sendiri, BCN bergerak sesuai nilai yang disepakati bersama.</p>
+                </div>
+
+                <div class="profile-card fade-in">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
+                        </svg>
+                    </div>
+                    <h3>Arti Nama BCN</h3>
+                    <p><strong>BRALING</strong> = Purbalingga<br>
+                    <strong>CURVA</strong> = Lingkar (Italia)<br>
+                    <strong>NORD</strong> = Utara (Italia)<br><br>
+                    <strong>Braling Curva Nord</strong> berarti Purbalingga Tribun Utara</p>
+                </div>
+
+                <div class="profile-card fade-in">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                        </svg>
+                    </div>
+                    <h3>Struktur Distrik</h3>
+                    <p>BCN terdiri dari distrik-distrik yang tersebar di berbagai wilayah. Setiap distrik memiliki koordinator yang bertanggung jawab atas anggota dan kegiatan di wilayahnya masing-masing.</p>
+                </div>
+
+                <div class="profile-card fade-in">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                    </div>
+                    <h3>Loyalitas Tinggi</h3>
+                    <p>Loyalitas penuh untuk Persibangga.Fokus mendukung, menolak keributan. BCN berkreasi demi Persibangga.</p>
+                </div>
+
+                <div class="profile-card fade-in">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3>Sejarah Berdiri</h3>
+                    <p>Berdiri pada tanggal 03 Maret 2013 di Purbalingga, Jawa Tengah. Berawal dari keinginan untuk memiliki kebebasan dalam berkreativitas mendukung Persibangga.</p>
+                </div>
+
+                <div class="profile-card fade-in">
+                    <div class="card-icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                        </svg>
+                    </div>
+                    <h3>Kreativitas</h3>
+                    <p>Kebebasan dalam berpikir, bertindak, dan berkreativitas baik di dalam stadion maupun di luar stadion. Selalu menciptakan suasana yang meriah dan mendukung tim.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="section" id="mission">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Visi & Misi</span>
+                <h2 class="section-title">Tujuan Kami</h2>
+                <p class="section-description">
+                    Berkreasi demi Persibangga dengan semangat kemandirian dan kreativitas
+                </p>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h3>Kebebasan & Kreativitas</h3>
+                    <p>Kita sebagai pecinta Persibangga, Braling fans, menginginkan sebuah kebebasan dalam berpikir, bertindak, berkreativitas baik di dalam stadion maupun di luar stadion. Untuk mendukung sebuah tim atau kesebelasan, tidak peduli kalian dari mana, bajumu apa, tua atau muda, ketika kalian punya spirit dan cinta kepada PERSIBANGGA, kalian layak untuk berada di sini.</p>
+                </div>
+
+                <div class="mission-card">
+                    <h3>Kemandirian & Semangat Juang</h3>
+                    <p>Menumbuhkan kemandirian di dalam setiap individu, menumbuhkan semangat juang dalam mendukung PERSIBANGGA, belajar menghargai satu sama lain, baik itu dengan sesama anggota BCN maupun dengan kelompok supporter lain.</p>
+                </div>
+
+                <div class="mission-card">
+                    <h3>Fokus Persibangga</h3>
+                    <p>BCN mung focus go Persibangga, udu keributan masa. Kami berdiri untuk berkreasi demi PERSIBANGGA. Loyalitas harga mati. Bocah Braling ndukung Persibangga!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Structure Section -->
+    <section class="section section-dark" id="structure">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Organisasi</span>
+                <h2 class="section-title">Struktur Organisasi</h2>
+                <p class="section-description">
+                    Sistem koordinator tanpa ketua untuk fleksibilitas dan kemandirian
+                </p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Tanpa Ketua</h3>
+                        <p>Secara organisasi, kita tidak memiliki ketua. Kita menggunakan format KOORDINATOR yang dapat berganti sewaktu-waktu sesuai kondisi dan situasi.</p>
+                    </div>
+                    <div class="timeline-date">Sistem</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Koordinator Pusat</h3>
+                        <p>Bertanggung jawab terhadap koordinasi seluruh distrik, memastikan visi dan misi BCN berjalan dengan baik di setiap wilayah.</p>
+                    </div>
+                    <div class="timeline-date">Level 1</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Koordinator Distrik</h3>
+                        <p>Bertanggung jawab terhadap anggota distrik, mengkoordinir kegiatan dan memastikan semangat BCN tetap terjaga di wilayahnya.</p>
+                    </div>
+                    <div class="timeline-date">Level 2</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>PERSIBANGGA?!</h2>
+            <p>BUSUNG GONE NYONG!!!</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img src="img/logobcn.jpeg" alt="BCN Logo">
+                </div>
+                <h3>Braling Curva Nord</h3>
+                <p>Komunitas suporter mandiri yang berdiri untuk berkreasi dan mendukung Persibangga dengan loyalitas harga mati.</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Link Cepat</h3>
+                <ul>
+                    <li><a href="#gallery">Galeri</a></li>
+                    <li><a href="#about">Profil</a></li>
+                    <li><a href="#mission">Visi & Misi</a></li>
+                    <li><a href="#structure">Struktur</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <p>📧 Email: info@bralingcurvanord.id</p>
+                <p>📱 WhatsApp: +62 xxx xxxx xxxx</p>
+                <p>📍 Purbalingga, Jawa Tengah, Indonesia</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Ikuti Kami</h3>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2013 - 2026 Braling Curva Nord. All Rights Reserved.</p>
+            <p style="margin-top: 1rem; color: #dc2626; font-weight: 700;">BUSUNG GONE NYONG</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    navMenu.classList.remove('active');
+                    const offsetTop = target.offsetTop - 90;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar Scroll Effect
+        let lastScroll = 0;
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.style.boxShadow = '0 4px 20px rgba(220, 38, 38, 0.5)';
+            } else {
+                navbar.style.boxShadow = '0 2px 20px rgba(220, 38, 38, 0.3)';
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.profile-card, .mission-card, .gallery-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
