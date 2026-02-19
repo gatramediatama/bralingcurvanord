@@ -56,15 +56,15 @@
         }
 
         .brand-logo {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border: 2px solid var(--red);
+            border: 3px solid var(--red);
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
             flex-shrink: 0;
         }
@@ -72,8 +72,7 @@
         .brand-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            padding: 5px;
+            object-fit: cover;
         }
 
         .brand-text h1 {
@@ -145,7 +144,7 @@
             transition: all 0.3s;
         }
 
-        /* Hero Section - Split Layout */
+        /* Hero Section */
         .hero {
             position: relative;
             min-height: 600px;
@@ -339,6 +338,9 @@
             border: 2px solid #333;
             transition: all 0.3s;
             background: var(--black-light);
+            cursor: pointer;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         .gallery-item:hover {
@@ -352,6 +354,8 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s;
+            display: block;
+            pointer-events: none;
         }
 
         .gallery-item:hover img {
@@ -409,10 +413,176 @@
             color: var(--gray);
         }
 
+        /* Tap hint badge */
+        .gallery-tap-hint {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(220, 38, 38, 0.85);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            backdrop-filter: blur(4px);
+        }
+
+        .gallery-item:hover .gallery-tap-hint {
+            opacity: 1;
+        }
+
+        /* ===================== */
+        /*    LIGHTBOX STYLES    */
+        /* ===================== */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 1rem;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-inner {
+            position: relative;
+            max-width: min(90vw, 1100px);
+            max-height: 80vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            width: auto;
+            height: auto;
+            border-radius: 10px;
+            border: 3px solid var(--red);
+            box-shadow: 0 20px 80px rgba(220, 38, 38, 0.5);
+            object-fit: contain;
+            display: block;
+            transform: scale(0.92);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-overlay.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: fixed;
+            top: 1.2rem;
+            right: 1.4rem;
+            width: 44px;
+            height: 44px;
+            background: var(--red);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+            z-index: 10000;
+        }
+
+        .lightbox-close:hover {
+            background: var(--red-dark);
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            background: rgba(220, 38, 38, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.3s;
+            z-index: 10000;
+            backdrop-filter: blur(6px);
+        }
+
+        .lightbox-nav:hover {
+            background: var(--red);
+        }
+
+        .lightbox-prev {
+            left: 1rem;
+        }
+
+        .lightbox-next {
+            right: 1rem;
+        }
+
+        .lightbox-prev:hover {
+            transform: translateY(-50%) translateX(-3px);
+        }
+
+        .lightbox-next:hover {
+            transform: translateY(-50%) translateX(3px);
+        }
+
+        .lightbox-info {
+            text-align: center;
+            color: var(--white);
+            max-width: min(90vw, 700px);
+        }
+
+        .lightbox-info h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .lightbox-info p {
+            font-size: 0.95rem;
+            color: var(--gray);
+        }
+
+        .lightbox-counter {
+            font-size: 0.8rem;
+            color: var(--red);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.4rem;
+        }
+
         /* Profile Cards */
         .profile-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -481,14 +651,14 @@
         /* Stats Section */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
             text-align: center;
             padding: 3rem 0;
         }
 
         .stat-item {
-            padding: 2rem;
+            padding: 2rem 1rem;
             background: var(--black-light);
             border-radius: 10px;
             border: 2px solid #333;
@@ -502,7 +672,7 @@
         }
 
         .stat-number {
-            font-size: 4rem;
+            font-size: 3.5rem;
             font-weight: 900;
             color: var(--red);
             line-height: 1;
@@ -510,7 +680,7 @@
         }
 
         .stat-label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--gray);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -552,78 +722,87 @@
             font-size: 1.05rem;
         }
 
-        /* Timeline */
-        .timeline {
-            max-width: 900px;
-            margin: 0 auto;
-            position: relative;
-        }
+       /* Rules Section */
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: var(--red);
-            transform: translateX(-50%);
-        }
+.rule-card {
+    background: var(--black-light);
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 3rem;
-            display: flex;
-            align-items: center;
-        }
+.rule-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
 
-        .timeline-item:nth-child(odd) {
-            flex-direction: row;
-        }
+.rule-card:hover {
+    border-color: var(--red);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3);
+}
 
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
+.rule-card:hover::before {
+    transform: scaleX(1);
+}
 
-        .timeline-content {
-            width: 45%;
-            background: var(--black-light);
-            padding: 2rem;
-            border-radius: 10px;
-            border: 2px solid #333;
-            transition: all 0.3s;
-        }
+.rule-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    flex-shrink: 0;
+    margin-bottom: 0.5rem;
+}
 
-        .timeline-content:hover {
-            border-color: var(--red);
-            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.3);
-        }
+.rule-number {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+}
 
-        .timeline-date {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--red);
-            color: var(--white);
-            padding: 0.5rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-        }
+.rule-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--white);
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
 
-        .timeline-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-content p {
-            color: var(--gray);
-            line-height: 1.8;
-        }
+.rule-card p {
+    color: var(--gray);
+    line-height: 1.8;
+    font-size: 1rem;
+}
 
         /* CTA Section */
         .cta-section {
@@ -660,31 +839,10 @@
 
         .cta-section p {
             font-size: 1.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 0;
             opacity: 0.9;
             position: relative;
             z-index: 2;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--white);
-            color: var(--red);
-            padding: 1.2rem 3rem;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 5px;
-            transition: all 0.3s;
-            border: 3px solid var(--white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .cta-button:hover {
-            background: transparent;
-            color: var(--white);
         }
 
         /* Footer */
@@ -731,17 +889,50 @@
             color: var(--gray);
             text-decoration: none;
             transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .footer-section a:hover {
             color: var(--red);
         }
 
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--black);
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            border-color: var(--red);
+            background: var(--red);
+            transform: translateY(-3px);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--white);
+        }
+
         .footer-logo {
             width: 80px;
             height: 80px;
             background: var(--white);
-            border-radius: 10px;
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -753,8 +944,7 @@
         .footer-logo img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
-            padding: 5px;
+            object-fit: cover;
         }
 
         .footer-bottom {
@@ -795,37 +985,53 @@
             .hero-container {
                 grid-template-columns: 1fr;
                 gap: 2rem;
+                min-height: auto;
+                padding: 3rem 1.5rem;
             }
 
             .hero-content {
                 order: 2;
                 text-align: center;
+                padding: 1rem;
             }
 
             .hero-image {
                 order: 1;
-                min-height: 400px;
+                min-height: 350px;
             }
 
             .hero-image-wrapper {
-                max-width: 400px;
-                height: 400px;
+                max-width: 350px;
+                height: 350px;
             }
 
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                letter-spacing: 2px;
             }
 
             .hero-subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
 
             .hero-tagline {
-                font-size: 1.5rem;
+                font-size: 1.3rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 3rem 1.5rem;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+
+            .section-description {
+                font-size: 1rem;
             }
 
             .profile-grid {
@@ -836,23 +1042,104 @@
                 grid-template-columns: 1fr;
             }
 
-            .timeline::before {
-                left: 0;
+            .gallery-item {
+                height: 300px;
             }
 
-            .timeline-item {
-                flex-direction: column !important;
-                align-items: flex-start;
+            .rules-grid {
+                grid-template-columns: 1fr;
             }
 
-            .timeline-content {
-                width: 100%;
-                margin-left: 2rem;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
             }
 
-            .timeline-date {
-                left: 0;
-                transform: none;
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+            }
+
+            .mission-card {
+                padding: 2rem;
+            }
+
+            .mission-card h3 {
+                font-size: 1.5rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+
+            .cta-section p {
+                font-size: 1.2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .brand-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .brand-text p {
+                font-size: 0.65rem;
+            }
+
+            .brand-logo {
+                width: 60px;
+                height: 60px;
+            }
+
+            .navbar-content {
+                padding: 0 1rem;
+                height: 80px;
+            }
+
+            .lightbox-nav {
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
+            }
+
+            .lightbox-prev { left: 0.4rem; }
+            .lightbox-next { right: 0.4rem; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.5rem;
+            }
+
+            .hero-image-wrapper {
+                max-width: 280px;
+                height: 280px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+
+            .gallery-item {
+                height: 250px;
             }
         }
 
@@ -899,7 +1186,7 @@
                 <li><a href="#gallery">Galeri</a></li>
                 <li><a href="#about">Profil</a></li>
                 <li><a href="#mission">Visi & Misi</a></li>
-                <li><a href="#structure">Struktur</a></li>
+                <li><a href="#rules">Rules</a></li>
                 <li><a href="#contact">Kontak</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
@@ -910,7 +1197,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section - Split Layout -->
+    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-container">
             <div class="hero-content">
@@ -918,17 +1205,15 @@
                 <p class="hero-subtitle">Purbalingga, Jawa Tengah</p>
                 <p class="hero-tagline">BUSUNG GONE NYONG</p>
                 <p class="hero-description">
-                    Komunitas suporter mandiri yang berdiri sejak 03 Maret 2013.
-                    Berkreasi demi Persibangga dengan semangat kemandirian, kreativitas, dan loyalitas harga mati.
+                   Komunitas suporter yang berdiri sejak 03 Maret 2013 dan bermarkas di tribun utara GOR Goentoer Darjono.
+                   Kami berkreasi dan bergerak dengan semangat kemandirian, kreativitas,
+                   serta loyalitas tinggi demi mendukung Persibangga.
                 </p>
-                <a href="#about" class="hero-cta">Kenali Kami</a>
+                <a href="#about" class="hero-cta">Tentang Kami</a>
             </div>
             <div class="hero-image">
                 <div class="hero-image-wrapper">
-                    <div class="hero-image-wrapper">
                     <img src="heroimg.jpeg" alt="BCN Hero Image">
-                    </div>
-                    <div class="hero-image-placeholder">BCN</div>
                 </div>
             </div>
         </div>
@@ -945,81 +1230,69 @@
                 </p>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>Aksi di Stadion</p>
-                    </div>
+                <div class="gallery-item fade-in"
+                     data-title="Aksi di Stadion"
+                     data-caption="Persibangga VS Persiharjo">
+                    <img src="aksibcn.jpeg" alt="Aksi di Stadion">
+                    <div class="gallery-tap-hint">👆 Tap untuk lihat penuh</div>
                     <div class="gallery-caption">
                         <h3>Aksi di Stadion</h3>
-                        <p>Persibangga Vs Persibas </p>
+                        <p>Persibangga VS Persiharjo</p>
                     </div>
                 </div>
 
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>Koreografi</p>
-                    </div>
+                <div class="gallery-item fade-in"
+                     data-title="Koreografi BCN"
+                     data-caption="Koreografi BCN ditribun utara pada laga leg kedua babak 8 besar liga jateng 2025/2026 Persibangga VS Persik Kendal">
+                    <img src="koreografi.jpeg" alt="Koreografi BCN">
+                    <div class="gallery-tap-hint">👆 Tap untuk lihat penuh</div>
                     <div class="gallery-caption">
                         <h3>Koreografi BCN</h3>
-                        <p>Upload foto koreografi dan tifo</p>
+                        <p>Koreografi BCN ditribun utara pada laga leg kedua babak 8 besar liga jateng 2025/2026 Persibangga VS Persik Kendal</p>
                     </div>
                 </div>
 
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>Kegiatan Komunitas</p>
-                    </div>
+                <div class="gallery-item fade-in"
+                     data-title="Kegiatan Komunitas"
+                     data-caption="Penyaluran donasi bertajuk "BCN For Purbalingga" untuk membantu saudara yang terkena musibah dilereng gunung slamet">
+                    <img src="bcnberbagi.jpeg" alt="Kegiatan Komunitas">
+                    <div class="gallery-tap-hint">👆 Tap untuk lihat penuh</div>
                     <div class="gallery-caption">
                         <h3>Kegiatan Komunitas</h3>
-                        <p>Upload foto kegiatan BCN</p>
+                        <p>Penyaluran donasi bertajuk "BCN For Purbalingga" untuk membantu saudara yang terkena musibah dilereng gunung slamet</p>
                     </div>
                 </div>
 
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>Perjalanan Away</p>
-                    </div>
+                <div class="gallery-item fade-in"
+                     data-title="Perjalanan Away"
+                     data-caption="Laga final liga jateng 4 2025/2026 Persibangga VS Persak Kebumen Stadion Jatidiri">
+                    <img src="away.jpeg" alt="Perjalanan Away">
+                    <div class="gallery-tap-hint">👆 Tap untuk lihat penuh</div>
                     <div class="gallery-caption">
                         <h3>Perjalanan Away</h3>
-                        <p>Upload foto saat away</p>
+                        <p>Laga final liga jateng 4 2025/2026 Persibangga VS Persak Kebumen Stadion Jatidiri</p>
                     </div>
                 </div>
 
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>Merchandise</p>
-                    </div>
+                <div class="gallery-item fade-in"
+                     data-title="Merchandise BCN"
+                     data-caption="Koleksi resmi BCN">
+                    <img src="merch.jpeg" alt="Merchandise BCN">
+                    <div class="gallery-tap-hint">👆 Tap untuk lihat penuh</div>
                     <div class="gallery-caption">
                         <h3>Merchandise BCN</h3>
-                        <p>Upload foto merchandise</p>
+                        <p>Koleksi resmi BCN</p>
                     </div>
                 </div>
 
-                <div class="gallery-item fade-in">
-                    <div class="gallery-placeholder">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <p>Moment Spesial</p>
-                    </div>
+                <div class="gallery-item fade-in"
+                     data-title="Moment Spesial"
+                     data-caption="Arak-arakan perayaan Persibangga juara liga 4 jateng musim 2025/2026">
+                    <img src="konvoi.jpeg" alt="Moment Spesial">
+                    <div class="gallery-tap-hint">👆 Tap untuk lihat penuh</div>
                     <div class="gallery-caption">
                         <h3>Moment Spesial</h3>
-                        <p>Upload foto moment bersejarah</p>
+                        <p>Arak-arakan perayaan Persibangga juara liga 4 jateng musim 2025/2026</p>
                     </div>
                 </div>
             </div>
@@ -1031,7 +1304,7 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">12+</div>
+                    <div class="stat-number">13+</div>
                     <div class="stat-label">Tahun Berdiri</div>
                 </div>
                 <div class="stat-item">
@@ -1057,7 +1330,7 @@
                 <span class="section-label">Profil Kami</span>
                 <h2 class="section-title">Braling Curva Nord</h2>
                 <p class="section-description">
-                    BCN adalah komunitas suporter yang berdiri mandiri sejak 03 Maret 2013, 
+                    BCN adalah komunitas suporter sejak 03 Maret 2013, 
                     berkomitmen untuk mendukung Persibangga dengan kreativitas dan loyalitas.
                 </p>
             </div>
@@ -1104,7 +1377,7 @@
                         </svg>
                     </div>
                     <h3>Loyalitas Tinggi</h3>
-                    <p>Loyalitas penuh untuk Persibangga.Fokus mendukung, menolak keributan. BCN berkreasi demi Persibangga.</p>
+                    <p>Loyalitas penuh untuk Persibangga. Fokus mendukung, menolak keributan. BCN berkreasi demi Persibangga.</p>
                 </div>
 
                 <div class="profile-card fade-in">
@@ -1143,55 +1416,73 @@
             <div class="mission-grid">
                 <div class="mission-card">
                     <h3>Kebebasan & Kreativitas</h3>
-                    <p>Kita sebagai pecinta Persibangga, Braling fans, menginginkan sebuah kebebasan dalam berpikir, bertindak, berkreativitas baik di dalam stadion maupun di luar stadion. Untuk mendukung sebuah tim atau kesebelasan, tidak peduli kalian dari mana, bajumu apa, tua atau muda, ketika kalian punya spirit dan cinta kepada PERSIBANGGA, kalian layak untuk berada di sini.</p>
+                    <p>Kami sebagai pecinta Persibangga meyakini kebebasan dalam berpikir, bertindak, dan berkreativitas. Tidak ada sekat asal-usul, atribut, usia, atau latar belakang. Siapa pun yang memiliki semangat dan cinta untuk Persibangga, berhak berdiri dan bersuara bersama di sini.</p>
                 </div>
 
                 <div class="mission-card">
                     <h3>Kemandirian & Semangat Juang</h3>
-                    <p>Menumbuhkan kemandirian di dalam setiap individu, menumbuhkan semangat juang dalam mendukung PERSIBANGGA, belajar menghargai satu sama lain, baik itu dengan sesama anggota BCN maupun dengan kelompok supporter lain.</p>
+                    <p>Menumbuhkan sikap mandiri di setiap individu serta semangat juang dalam mendukung Persibangga. Kami menjunjung tinggi rasa saling menghargai baik antar anggota BCN maupun dengan kelompok suporter lain.</p>
                 </div>
 
                 <div class="mission-card">
                     <h3>Fokus Persibangga</h3>
-                    <p>BCN mung focus go Persibangga, udu keributan masa. Kami berdiri untuk berkreasi demi PERSIBANGGA. Loyalitas harga mati. Bocah Braling ndukung Persibangga!</p>
+                    <p>BCN berkomitmen mendukung Persibangga melalui kreativitas dan dukungan positif, dengan loyalitas tinggi</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Structure Section -->
-    <section class="section section-dark" id="structure">
+    <!-- Rules Section -->
+    <section class="section section-dark" id="rules">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Organisasi</span>
-                <h2 class="section-title">Struktur Organisasi</h2>
+                <span class="section-label">Aturan Tribun Utara</span>
+                <h2 class="section-title">BCN Rules</h2>
                 <p class="section-description">
-                    Sistem koordinator tanpa ketua untuk fleksibilitas dan kemandirian
+                    Aturan ini menjadi pegangan bersama bagi seluruh barisan BCN untuk menjaga kebersamaan, kedisiplinan, dan kualitas dukungan di Tribun Utara.
                 </p>
             </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Tanpa Ketua</h3>
-                        <p>Secara organisasi, kita tidak memiliki ketua. Kita menggunakan format KOORDINATOR yang dapat berganti sewaktu-waktu sesuai kondisi dan situasi.</p>
-                    </div>
-                    <div class="timeline-date">Sistem</div>
+            <div class="rules-grid">
+                <div class="rule-card fade-in">
+                    <div class="rule-icon">🧍</div>
+                    <span class="rule-number">Rule 01</span>
+                    <h3>Berdiri 2×45 Menit</h3>
+                    <p>Tribun Utara menjunjung dukungan penuh selama pertandingan. Sejak peluit awal hingga akhir laga, seluruh barisan berdiri dan membersamai perjuangan pemain di lapangan.</p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Koordinator Pusat</h3>
-                        <p>Bertanggung jawab terhadap koordinasi seluruh distrik, memastikan visi dan misi BCN berjalan dengan baik di setiap wilayah.</p>
-                    </div>
-                    <div class="timeline-date">Level 1</div>
+                <div class="rule-card fade-in">
+                    <div class="rule-icon">🗣️</div>
+                    <span class="rule-number">Rule 02</span>
+                    <h3>Bernyanyi Sepanjang Laga</h3>
+                    <p>Suara tribun adalah energi. Nyanyian dan chant yang terus mengalir menjadi bentuk dukungan nyata yang menghidupkan atmosfer dan menguatkan mental tim.</p>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Koordinator Distrik</h3>
-                        <p>Bertanggung jawab terhadap anggota distrik, mengkoordinir kegiatan dan memastikan semangat BCN tetap terjaga di wilayahnya.</p>
-                    </div>
-                    <div class="timeline-date">Level 2</div>
+                <div class="rule-card fade-in">
+                    <div class="rule-icon">👟</div>
+                    <span class="rule-number">Rule 03</span>
+                    <h3>Wajib Bersepatu</h3>
+                    <p>Tribun adalah ruang dukungan aktif. Demi keselamatan dan kesiapan bersama, setiap pendukung wajib mengenakan sepatu selama berada di Tribun Utara.</p>
+                </div>
+
+                <div class="rule-card fade-in">
+                    <div class="rule-icon">🚫</div>
+                    <span class="rule-number">Rule 04</span>
+                    <h3>No Racism</h3>
+                    <p>BCN menolak segala bentuk rasisme. Perbedaan bukan penghalang selama kita memiliki satu tujuan mendukung Persibangga dengan penuh rasa hormat.</p>
+                </div>
+
+                <div class="rule-card fade-in">
+                    <div class="rule-icon">⛔</div>
+                    <span class="rule-number">Rule 05</span>
+                    <h3>No Sexism</h3>
+                    <p>Tribun Utara adalah ruang bersama. Setiap orang tanpa memandang gender atau usia berhak mendapatkan rasa aman dan dihormati dalam mendukung Persibangga.</p>
+                </div>
+
+                <div class="rule-card fade-in">
+                    <div class="rule-icon">📵</div>
+                    <span class="rule-number">Rule 06</span>
+                    <h3>No Handphone</h3>
+                    <p>Selama pertandingan, fokuskan diri sepenuhnya pada dukungan dan nyanyian. Simpan handphone, berdiri, dan bernyanyi karena 90 menit ini adalah fokus untuk Persibangga.</p>
                 </div>
             </div>
         </div>
@@ -1210,10 +1501,22 @@
         <div class="footer-content">
             <div class="footer-section">
                 <div class="footer-logo">
-                    <img src="logobcn.jpeg" alt="BCN Logo">
+                    <img src="img/logobcn.jpeg" alt="BCN Logo">
                 </div>
                 <h3>Braling Curva Nord</h3>
-                <p>Komunitas suporter mandiri yang berdiri untuk berkreasi dan mendukung Persibangga dengan loyalitas harga mati.</p>
+                <p>Komunitas suporter tribun utara Gor Goentoer Darjono yang berdiri untuk berkreasi dan mendukung Persibangga.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/bcnxpersibangga.1954" target="_blank" rel="noopener" class="social-link" title="Instagram">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.facebook.com/persibanggabusunggonenyong" target="_blank" rel="noopener" class="social-link" title="Facebook">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
 
             <div class="footer-section">
@@ -1222,24 +1525,22 @@
                     <li><a href="#gallery">Galeri</a></li>
                     <li><a href="#about">Profil</a></li>
                     <li><a href="#mission">Visi & Misi</a></li>
-                    <li><a href="#structure">Struktur</a></li>
+                    <li><a href="#rules">BCN Rules</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
                 <h3>Kontak</h3>
                 <p>📧 Email: info@bralingcurvanord.id</p>
-                <p>📱 WhatsApp: +62 xxx xxxx xxxx</p>
+                <p>📱 WhatsApp: +62 817-7955-1954</p>
                 <p>📍 Purbalingga, Jawa Tengah, Indonesia</p>
             </div>
 
             <div class="footer-section">
                 <h3>Ikuti Kami</h3>
                 <ul>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">YouTube</a></li>
+                    <li><a href="https://www.instagram.com/bcnxpersibangga.1954" target="_blank" rel="noopener">📷 Instagram</a></li>
+                    <li><a href="https://www.facebook.com/persibanggabusunggonenyong" target="_blank" rel="noopener">👥 Facebook</a></li>
                 </ul>
             </div>
         </div>
@@ -1250,8 +1551,27 @@
         </div>
     </footer>
 
+    <!-- ===================== -->
+    <!--   LIGHTBOX MARKUP     -->
+    <!-- ===================== -->
+    <div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Foto penuh">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Foto sebelumnya">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Foto berikutnya">&#8250;</button>
+
+        <div class="lightbox-inner">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+        </div>
+
+        <div class="lightbox-info">
+            <div class="lightbox-counter" id="lightboxCounter"></div>
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxCaption"></p>
+        </div>
+    </div>
+
     <script>
-        // Mobile Menu Toggle
+        // ===== Mobile Menu =====
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
 
@@ -1259,44 +1579,27 @@
             navMenu.classList.toggle('active');
         });
 
-        // Smooth Scroll
+        // ===== Smooth Scroll =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     navMenu.classList.remove('active');
-                    const offsetTop = target.offsetTop - 90;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: target.offsetTop - 90, behavior: 'smooth' });
                 }
             });
         });
 
-        // Navbar Scroll Effect
-        let lastScroll = 0;
+        // ===== Navbar Scroll =====
         const navbar = document.querySelector('.navbar');
-
         window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (currentScroll > 100) {
-                navbar.style.boxShadow = '0 4px 20px rgba(220, 38, 38, 0.5)';
-            } else {
-                navbar.style.boxShadow = '0 2px 20px rgba(220, 38, 38, 0.3)';
-            }
-
-            lastScroll = currentScroll;
+            navbar.style.boxShadow = window.pageYOffset > 100
+                ? '0 4px 20px rgba(220,38,38,0.5)'
+                : '0 2px 20px rgba(220,38,38,0.3)';
         });
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        // ===== IntersectionObserver =====
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1304,10 +1607,121 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-        document.querySelectorAll('.profile-card, .mission-card, .gallery-item').forEach(el => {
+        document.querySelectorAll('.profile-card, .mission-card, .gallery-item, .rule-card').forEach(el => {
             observer.observe(el);
+        });
+
+        // ===========================
+        //       LIGHTBOX LOGIC
+        // ===========================
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        const lightbox      = document.getElementById('lightbox');
+        const lightboxImg   = document.getElementById('lightboxImg');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxCap   = document.getElementById('lightboxCaption');
+        const lightboxCount = document.getElementById('lightboxCounter');
+        const btnClose      = document.getElementById('lightboxClose');
+        const btnPrev       = document.getElementById('lightboxPrev');
+        const btnNext       = document.getElementById('lightboxNext');
+
+        let currentIndex = 0;
+        let holdTimer    = null;
+        const HOLD_MS    = 400; // milliseconds to trigger long-press
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const item   = galleryItems[index];
+            const img    = item.querySelector('img');
+
+            lightboxImg.src      = img ? img.src   : '';
+            lightboxImg.alt      = img ? img.alt   : '';
+            lightboxTitle.textContent = item.dataset.title   || '';
+            lightboxCap.textContent   = item.dataset.caption || '';
+            lightboxCount.textContent = `${index + 1} / ${galleryItems.length}`;
+
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+            openLightbox(currentIndex);
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % galleryItems.length;
+            openLightbox(currentIndex);
+        }
+
+        // Attach events to each gallery item
+        galleryItems.forEach((item, index) => {
+
+            // ---- DESKTOP: single click ----
+            item.addEventListener('click', () => openLightbox(index));
+
+            // ---- MOBILE: tap (touchstart + touchend short tap) ----
+            item.addEventListener('touchstart', (e) => {
+                holdTimer = setTimeout(() => {
+                    // Long press
+                    openLightbox(index);
+                    holdTimer = null;
+                }, HOLD_MS);
+            }, { passive: true });
+
+            item.addEventListener('touchend', () => {
+                if (holdTimer !== null) {
+                    // Short tap — also open lightbox
+                    clearTimeout(holdTimer);
+                    holdTimer = null;
+                    openLightbox(index);
+                }
+            });
+
+            item.addEventListener('touchmove', () => {
+                // User is scrolling — cancel
+                clearTimeout(holdTimer);
+                holdTimer = null;
+            }, { passive: true });
+        });
+
+        // Close button
+        btnClose.addEventListener('click', closeLightbox);
+
+        // Navigation buttons
+        btnPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+        btnNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+
+        // Click outside image → close
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape')      closeLightbox();
+            if (e.key === 'ArrowLeft')   showPrev();
+            if (e.key === 'ArrowRight')  showNext();
+        });
+
+        // Swipe support on lightbox
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+
+        lightbox.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) {
+                dx < 0 ? showNext() : showPrev();
+            }
         });
     </script>
 </body>
